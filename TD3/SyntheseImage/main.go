@@ -142,7 +142,7 @@ func (p Phong) render(rio, rdi, n Vec3f, t float32, scene Scene) rgbRepresentati
 	omega := Add(rio, rdi.mul(t))
 	omega = Add(scene.lights[0].position, Vec3f{-omega.x, -omega.y, -omega.z})
 
-	Is := Dot(omega, -rdi)
+	Is := Dot(omega, -rdi).mul(t)
 
 	Li := Mul(p.kd, scene.lights[0].color.mul(Dot(n, omega))).mul(1 / 3.14)
 	return rgbRepresentation{uint8(Li.x * 255), uint8(Li.y * 255), uint8(Li.z * 255)}
